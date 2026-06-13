@@ -1,13 +1,18 @@
-# Project Name: Python RAG Assistant using LangChain, ChromaDB, Groq, and FastAPI
+# Python Programming Q&A Assistant using LangChain, Qdrant Cloud, Groq, and FastAPI
 
-Note:
-The raw Stack Overflow dataset and ChromaDB vector store are excluded from GitHub due to their large size. The repository contains the complete source code, notebooks, API implementation, testing artifacts, and documentation.
+## Note
 
-## Project Overview:
+The raw Stack Overflow dataset is excluded from GitHub due to its large size. The repository contains the complete source code, notebooks, API implementation, testing artifacts, deployment configuration, and documentation.
 
-This project is a Retrieval-Augmented Generation (RAG) based on Python Question Answering Assistant built using LangChain, ChromaDB, Groq LLM, and FastAPI(Swagger UI).
+---
 
-The system answers Python-related questions using a knowledge base constructed from Stack Overflow Python question-answer pairs. Responses are generated only from retrieved context, reducing hallucinations and ensuring grounded answers.
+## Project Overview
+
+This project is a Retrieval-Augmented Generation (RAG) based Python Programming Question Answering Assistant built using LangChain, Qdrant Cloud, Groq LLM, and FastAPI.
+
+The system answers Python-related questions using a knowledge base constructed from 50,000 Stack Overflow Python question-answer pairs.
+
+Responses are generated only from retrieved context, reducing hallucinations and ensuring grounded answers.
 
 If relevant information is not available in the knowledge base, the system responds with:
 
@@ -15,26 +20,43 @@ If relevant information is not available in the knowledge base, the system respo
 
 ---
 
-## Features:
+## Live Deployment
+
+### Railway API URL
+
+https://web-production-6bbe1.up.railway.app
+
+### Swagger Documentation
+
+https://web-production-6bbe1.up.railway.app/docs
+
+### Health Check
+
+https://web-production-6bbe1.up.railway.app/health
+
+---
+
+## Features
 
 * Retrieval-Augmented Generation (RAG)
-* ChromaDB Vector Database
-* HuggingFace Embeddings
-* Groq Llama 3.1 Integration
+* Qdrant Cloud Vector Database
+* HuggingFace Embeddings (all-MiniLM-L6-v2)
+* Groq Llama 3.1 8B Instant Integration
 * FastAPI REST API
-* Hallucination Prevention using Similarity Threshold-1.0
+* Railway Cloud Deployment
+* Hallucination Prevention using Similarity Threshold
 * Source Attribution
 * API Testing and Evaluation
 
 ---
 
-## Dataset:
+## Dataset
 
 Source: Stack Overflow Python Question-Answer Dataset
 
 Dataset Size:
 
-* 50,000 Python Question-Answer pairs
+* 50,000 Python Question-Answer Pairs
 
 Fields Used:
 
@@ -49,10 +71,11 @@ Fields Used:
 
 * Python
 * LangChain
-* ChromaDB
+* Qdrant Cloud
 * HuggingFace Embeddings
 * Groq (Llama 3.1 8B Instant)
 * FastAPI
+* Railway
 * Pandas
 
 ---
@@ -69,11 +92,13 @@ AnalyticsVidhya_Assessment/
 
 ├── 04_api_testing.ipynb
 
+├── 05_qdrant_migration.ipynb
+
 ├── rag_pipeline.py
 
 ├── app.py
 
-├── chroma_db/
+├── requirements.txt
 
 ├── .env
 
@@ -93,7 +118,7 @@ FastAPI (/ask)
 
 ↓
 
-Retriever (ChromaDB)
+Qdrant Cloud Retriever
 
 ↓
 
@@ -135,11 +160,17 @@ Request:
 "question": "What is a Python decorator?"
 }
 
-Response:
+Successful Response:
 
 {
 "answer": "...",
 "sources": [...]
+}
+
+Out-of-Knowledge-Base Response:
+
+{
+"answer": "I could not find the answer in the provided knowledge base."
 }
 
 ---
@@ -152,20 +183,20 @@ If the retrieved documents exceed the threshold, the system returns:
 
 "I could not find the answer in the provided knowledge base."
 
-This ensures that answers remain grounded in the knowledge base.
+This ensures that responses remain grounded in the knowledge base.
 
 ---
 
 ## Example Queries
 
-Valid Queries:
+### Valid Queries
 
 * What is a Python decorator?
 * What is a metaclass in Python?
 * How do Python generators work?
 * How do I execute shell commands from Python?
 
-Rejected Queries:
+### Rejected Queries
 
 * Who won FIFA World Cup 2022?
 * What is the capital of France?
@@ -176,14 +207,17 @@ Rejected Queries:
 ## Future Improvements
 
 * Streamlit User Interface
-* Public Deployment
-* Advanced Retrieval Techniques
 * Hybrid Search
+* Advanced Retrieval Techniques
 * Conversation Memory
+* User Authentication
 
 ---
 
 ## Author
 
 Bilal Surti
-Computer Engineering Graduate - AI/ML Engineer
+
+Computer Engineering Graduate
+
+AI / ML Engineer
