@@ -1,5 +1,8 @@
 # Project Name: Python RAG Assistant using LangChain, ChromaDB, Groq, and FastAPI
 
+Note:
+The raw Stack Overflow dataset and ChromaDB vector store are excluded from GitHub due to their large size. The repository contains the complete source code, notebooks, API implementation, testing artifacts, and documentation.
+
 ## Project Overview:
 
 This project is a Retrieval-Augmented Generation (RAG) based on Python Question Answering Assistant built using LangChain, ChromaDB, Groq LLM, and FastAPI(Swagger UI).
