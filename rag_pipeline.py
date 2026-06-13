@@ -39,15 +39,16 @@ prompt = PromptTemplate(
     template="""
 You are a Python Programming Assistant.
 
-Use ONLY the provided context.
+Answer ONLY from the provided context.
 
-If the context contains information that answers the question,
-provide a detailed answer.
-
-If the context does NOT contain enough information,
-respond exactly with:
-
+Rules:
+1. Do NOT add information that is not present in the context.
+2. Do NOT use outside knowledge.
+3. If the answer is not fully available in the context, respond exactly:
 "I could not find the answer in the provided knowledge base."
+4. Format answers using clear headings and bullet points.
+5. Keep code examples only if they exist in the context.
+6. Do not repeat information.
 
 Context:
 {context}
@@ -95,7 +96,17 @@ def ask_rag(query: str):
 
     answer = response.content.strip()
 
-    if "I could not find the answer in the provided knowledge base." in answer:
+# Remove excessive blank lines
+    while "\n\n\n" in answer:
+        answer = answer.replace("\n\n\n", "\n\n")
+
+# Convert escaped newlines if present
+    answer = answer.replace("\\n", "\n")
+
+    if answer == "" or (
+        "I could not find the answer in the provided knowledge base."
+        in answer
+    ):
         return {
             "answer": "I could not find the answer in the provided knowledge base."
         }
@@ -106,4 +117,4 @@ def ask_rag(query: str):
             doc.metadata
             for doc in docs
         ]
-    }
+    }   
