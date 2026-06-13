@@ -1,9 +1,9 @@
 langchain
 langchain-core
-langchain-chroma
 langchain-huggingface
 langchain-groq
-chromadb
+langchain-qdrant
+qdrant-client
 sentence-transformers
 fastapi
 uvicorn
