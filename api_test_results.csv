@@ -1,0 +1,9 @@
+Question,Status,Answer Preview,Observation
+What is a Python decorator?,PASS,"A Python decorator is a special type of function that can modify or extend the behavior of another function. It is a higher-order function, meaning it takes another function as an argument and returns",Returned grounded answer
+What is a metaclass in Python?,PASS,"Metaclasses are classes whose instances are classes. In other words, a metaclass is a class that creates classes. They are used to customize the creation of classes, and can be used to implement compl",Returned grounded answer
+How do Python generators work?,PASS,"A generator in Python is a function that returns an iterator, which is an object that defines the `__iter__()` method and the `__next__()` method. When you call a generator function, it doesn't execut",Returned grounded answer
+How do I execute shell commands from Python?,PASS,"The subprocess module can be used for this purpose: import subprocess retcode = subprocess.call([""at"", ""x"", ""y"", ""z""]) Replace x , y and z with the parameters to at.",Returned grounded answer
+What is Django?,PASS,I could not find the answer in the provided knowledge base.,Correctly rejected out-of-domain question
+What is the capital of France?,PASS,I could not find the answer in the provided knowledge base.,Correctly rejected out-of-domain question
+Who won FIFA World Cup 2022?,PASS,I could not find the answer in the provided knowledge base.,Correctly rejected out-of-domain question
+Latest IPL winner,PASS,I could not find the answer in the provided knowledge base.,Correctly rejected out-of-domain question

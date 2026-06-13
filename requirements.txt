@@ -1,0 +1,12 @@
+langchain
+langchain-core
+langchain-chroma
+langchain-huggingface
+langchain-groq
+chromadb
+sentence-transformers
+fastapi
+uvicorn
+python-dotenv
+pandas
+requests

@@ -1,0 +1,8 @@
+chroma_db/
+.ipynb_checkpoints/
+data/
+processed_stackoverflow.csv
+chroma_db/
+.venv/
+__pycache__/
+.env
