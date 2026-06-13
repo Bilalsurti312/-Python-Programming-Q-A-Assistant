@@ -3,7 +3,9 @@ from pydantic import BaseModel
 
 from rag_pipeline import ask_rag
 
-app = FastAPI()
+app = FastAPI(
+    title="Python Programming Q&A Assistant"
+)
 
 class QuestionRequest(BaseModel):
     question: str

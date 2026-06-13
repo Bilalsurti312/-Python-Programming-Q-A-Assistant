@@ -1,10 +1,16 @@
-from langchain_chroma import Chroma
+from dotenv import load_dotenv
+import os
+
+from qdrant_client import QdrantClient
+from langchain_qdrant import QdrantVectorStore
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_groq import ChatGroq
 from langchain_core.prompts import PromptTemplate
-from dotenv import load_dotenv
 
 load_dotenv()
+
+QDRANT_URL = os.getenv("QDRANT_URL")
+QDRANT_API_KEY = os.getenv("QDRANT_API_KEY")
 
 THRESHOLD = 1.0
 
@@ -12,9 +18,15 @@ embedding_model = HuggingFaceEmbeddings(
     model_name="sentence-transformers/all-MiniLM-L6-v2"
 )
 
-vectorstore = Chroma(
-    persist_directory="./chroma_db",
-    embedding_function=embedding_model
+client = QdrantClient(
+    url=QDRANT_URL,
+    api_key=QDRANT_API_KEY
+)
+
+vectorstore = QdrantVectorStore(
+    client=client,
+    collection_name="python_qa",
+    embedding=embedding_model
 )
 
 llm = ChatGroq(
@@ -47,7 +59,8 @@ Answer:
 """
 )
 
-def ask_rag(query):
+
+def ask_rag(query: str):
 
     docs_with_scores = vectorstore.similarity_search_with_score(
         query,
@@ -56,22 +69,21 @@ def ask_rag(query):
 
     if not docs_with_scores:
         return {
-            "answer": "I could not find the answer in the provided knowledge base.",
-            "sources": []
+            "answer": "I could not find the answer in the provided knowledge base."
         }
 
     best_score = docs_with_scores[0][1]
 
     if best_score > THRESHOLD:
         return {
-            "answer": "I could not find the answer in the provided knowledge base.",
-            "sources": []
+            "answer": "I could not find the answer in the provided knowledge base."
         }
 
     docs = [doc for doc, score in docs_with_scores]
 
     context = "\n\n".join(
-        [doc.page_content for doc in docs]
+        doc.page_content
+        for doc in docs
     )
 
     final_prompt = prompt.format(
@@ -81,8 +93,15 @@ def ask_rag(query):
 
     response = llm.invoke(final_prompt)
 
+    answer = response.content.strip()
+
+    if "I could not find the answer in the provided knowledge base." in answer:
+        return {
+            "answer": "I could not find the answer in the provided knowledge base."
+        }
+
     return {
-        "answer": response.content,
+        "answer": answer,
         "sources": [
             doc.metadata
             for doc in docs
